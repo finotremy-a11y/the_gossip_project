@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   get "gossips/show"
   get "static_pages/team"
   get "static_pages/contact"
-  
+
   # Dynamic welcome route
   get "/welcome/:first_name", to: "static_pages#welcome"
 
