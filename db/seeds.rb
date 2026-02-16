@@ -44,7 +44,7 @@ users = [
 users.each { |u| User.create!(u) }
 
 puts "Création des tags..."
-tags = ["Secret", "Amour", "Travail", "Famille", "Rumeur", "Soirée", "École", "Voisinage", "Café", "Mystère"]
+tags = [ "Secret", "Amour", "Travail", "Famille", "Rumeur", "Soirée", "École", "Voisinage", "Café", "Mystère" ]
 tags.each { |t| Tag.create!(title: t) }
 
 puts "Création des potins..."
@@ -92,7 +92,7 @@ puts "Création des likes..."
 80.times do
   Like.create!(
     user: User.all.sample,
-    likeable: [Gossip.all.sample, Comment.all.sample].sample
+    likeable: [ Gossip.all.sample, Comment.all.sample ].sample
   )
 end
 

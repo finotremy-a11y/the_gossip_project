@@ -21,5 +21,5 @@ Rails.application.routes.draw do
   get "/contact", to: "static_pages#contact"
   root "gossips#index"
   resources :gossips
-  resources :users, only: [:show]
+  resources :users, only: [ :show ]
 end
