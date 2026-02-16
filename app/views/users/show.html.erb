@@ -1,0 +1,18 @@
+<h1>Profil de <%= @user.first_name %></h1>
+
+<p><strong>Prénom :</strong> <%= @user.first_name %></p>
+<p><strong>Nom :</strong> <%= @user.last_name %></p>
+<p><strong>Email :</strong> <%= @user.email %></p>
+
+<p><strong>Ville :</strong> <%= @user.city.name %></p>
+
+<p><strong>Ses potins :</strong></p>
+<ul>
+  <% @user.gossips.each do |gossip| %>
+    <li>
+      <%= link_to gossip.title, gossip_path(gossip.id) %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "Retour", root_path, class: "btn btn-secondary mt-3" %>

@@ -1,0 +1,42 @@
+<div class="card mb-4">
+  <div class="card-body">
+    <h2 class="card-title"><%= @gossip.title %></h2>
+
+    <p class="card-text mt-3"><%= @gossip.content %></p>
+
+    <p class="text-muted">
+      Posté par 
+      <%= link_to @gossip.user.first_name, user_path(@gossip.user.id), class: "fw-bold" %>
+      le <%= @gossip.created_at.strftime("%d/%m/%Y") %>
+    </p>
+
+    <span class="badge bg-primary">
+      👍 <%= @gossip.likes.count %> likes
+    </span>
+  </div>
+</div>
+
+<h3 class="mb-3">Commentaires</h3>
+
+<% @gossip.comments.each do |comment| %>
+  <div class="card mb-2">
+    <div class="card-body">
+      <p class="mb-1">
+        <strong><%= comment.user.first_name %></strong> :
+        <%= comment.content %>
+      </p>
+
+      <p class="text-muted small mb-0">
+        👍 <%= comment.likes.count %> likes
+      </p>
+    </div>
+  </div>
+<% end %>
+
+<div class="mb-4">
+  <% @gossip.tags.each do |tag| %>
+    <span class="badge bg-secondary me-1"><%= tag.title %></span>
+  <% end %>
+</div>
+
+<%= link_to "Retour à l'accueil", root_path, class: "btn btn-outline-secondary mt-3" %>
