@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get "users/show"
+  get "gossips/index"
+  get "gossips/show"
+  get "static_pages/team"
+  get "static_pages/contact"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -9,18 +14,12 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
-  # Root path
-  root 'gossips#index'
-
-  # Static pages routes
-  get 'users/show'
-  get 'gossips/index'
-  get 'gossips/show'
-  get 'static_pages/team'
-  get 'static_pages/contact'
-  get '/welcome/:first_name', to: 'static_pages#welcome'
-
-  # RESTful resources
+  # Defines the root path route ("/")
+  # root "posts#index"
+  get "/welcome/:first_name", to: "static_pages#welcome"
+  get "/team", to: "static_pages#team"
+  get "/contact", to: "static_pages#contact"
+  root "gossips#index"
   resources :gossips
   resources :users, only: [:show]
 end
