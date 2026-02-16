@@ -1,0 +1,4 @@
+gossip_one:
+  title: Test Gossip
+  content: This is a test gossip for unit tests
+  user: user_one

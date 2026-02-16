@@ -1,0 +1,7 @@
+user_one:
+  first_name: Alice
+  last_name: Martin
+  description: A test user
+  age: 25
+  city: city_one
+
