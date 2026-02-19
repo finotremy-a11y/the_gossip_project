@@ -1,0 +1,14 @@
+<h1>Message privé</h1>
+
+<p><strong>De :</strong> <%= @message.sender.first_name %></p>
+
+<p><strong>À :</strong>
+  <% @message.recipients.each do |r| %>
+    <%= r.first_name %>
+  <% end %>
+</p>
+
+<p><strong>Contenu :</strong></p>
+<p><%= @message.content %></p>
+
+<%= link_to "Retour", root_path, class: "btn btn-secondary" %>

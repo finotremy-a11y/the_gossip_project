@@ -1,0 +1,27 @@
+<h1>Ville : <%= @city.name %></h1>
+
+<p><strong>Code postal :</strong> <%= @city.zip_code %></p>
+
+<hr>
+
+<h2>Habitants</h2>
+
+<% @users.each do |u| %>
+  <p>
+    <%= link_to "#{u.first_name} #{u.last_name}", user_path(u) %>
+  </p>
+<% end %>
+
+<hr>
+
+<h2>Gossips de cette ville</h2>
+
+<% @gossips.each do |g| %>
+  <div class="card mb-3">
+    <div class="card-body">
+      <h3><%= link_to g.title, gossip_path(g) %></h3>
+      <p><%= truncate(g.content, length: 100) %></p>
+      <small>Par <%= g.user.first_name %></small>
+    </div>
+  </div>
+<% end %>

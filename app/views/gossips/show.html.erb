@@ -1,42 +1,65 @@
-<div class="card mb-4">
-  <div class="card-body">
-    <h2 class="card-title"><%= @gossip.title %></h2>
+<h1><%= @gossip.title %></h1>
 
-    <p class="card-text mt-3"><%= @gossip.content %></p>
+<p><%= @gossip.content %></p>
 
-    <p class="text-muted">
-      Posté par 
-      <%= link_to @gossip.user.first_name, user_path(@gossip.user.id), class: "fw-bold" %>
-      le <%= @gossip.created_at.strftime("%d/%m/%Y") %>
-    </p>
+<p>
+  <strong>Auteur :</strong>
+  <%= link_to @gossip.user.first_name, user_path(@gossip.user) %>
+</p>
 
-    <span class="badge bg-primary">
-      👍 <%= @gossip.likes.count %> likes
-    </span>
-  </div>
-</div>
+<p>
+  <strong>Ville :</strong>
+  <%= link_to @gossip.user.city.name, city_path(@gossip.user.city) %>
+</p>
 
-<h3 class="mb-3">Commentaires</h3>
+<hr>
 
-<% @gossip.comments.each do |comment| %>
-  <div class="card mb-2">
-    <div class="card-body">
-      <p class="mb-1">
-        <strong><%= comment.user.first_name %></strong> :
-        <%= comment.content %>
-      </p>
+<h3>Likes : <%= @gossip.likes.count %></h3>
 
-      <p class="text-muted small mb-0">
-        👍 <%= comment.likes.count %> likes
-      </p>
-    </div>
+<%= link_to "Modifier", edit_gossip_path(@gossip), class: "btn btn-warning" %>
+
+  <%= button_to "Supprimer", gossip_path(@gossip), method: :delete, data: { confirm: "Tu es sûr ?" }, class: "btn btn-danger mt-2" %>
+
+<% if logged_in? %>
+  <% if @gossip.likes.exists?(user: current_user) %>
+    <% like = @gossip.likes.find_by(user: current_user) %>
+    <%= button_to "Je n'aime plus", gossip_like_path(@gossip, like),
+          method: :delete, class: "btn btn-danger" %>
+  <% else %>
+    <%= button_to "J'aime", gossip_likes_path(@gossip), method: :post %>
+  <% end %>
+<% else %>
+  <p class="text-muted">Connecte-toi pour liker.</p>
+<% end %>
+
+<hr>
+
+<h3>Tags</h3>
+
+<% @gossip.tags.each do |t| %>
+  <%= link_to t.title, tag_path(t), class: "badge bg-info text-dark me-1" %>
+<% end %>
+
+<hr>
+
+<h2>Commentaires</h2>
+
+<% @gossip.comments.each do |c| %>
+  <div class="mb-2">
+    <strong><%= c.user.first_name %> :</strong>
+    <%= c.content %>
   </div>
 <% end %>
 
-<div class="mb-4">
-  <% @gossip.tags.each do |tag| %>
-    <span class="badge bg-secondary me-1"><%= tag.title %></span>
-  <% end %>
-</div>
+<% if logged_in? %>
+  <h3>Ajouter un commentaire</h3>
 
-<%= link_to "Retour à l'accueil", root_path, class: "btn btn-outline-secondary mt-3" %>
+  <%= form_with model: [@gossip, Comment.new], local: true do |f| %>
+    <%= f.text_area :content, class: "form-control", placeholder: "Ton commentaire..." %>
+    <%= f.submit "Envoyer", class: "btn btn-primary mt-2" %>
+  <% end %>
+<% else %>
+  <p class="text-muted">Connecte-toi pour commenter.</p>
+<% end %>
+
+<%= link_to "Retour", root_path, class: "btn btn-secondary" %>

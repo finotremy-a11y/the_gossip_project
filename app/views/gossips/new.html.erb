@@ -1,0 +1,14 @@
+<h1>Nouveau Gossip</h1>
+
+<%= form_with model: @gossip, local: true do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title, class: "form-control" %>
+
+  <%= f.label :content %>
+  <%= f.text_area :content, class: "form-control" %>
+
+  <%= f.label :tags, "Tags (séparés par des virgules)" %>
+  <%= text_field_tag :tags, "", class: "form-control" %>
+
+  <%= f.submit "Créer", class: "btn btn-success mt-3" %>
+<% end %>

@@ -1,0 +1,11 @@
+<h1>Modifier le gossip</h1>
+
+<%= form_with model: @gossip, local: true do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title, class: "form-control" %>
+
+  <%= f.label :content %>
+  <%= f.text_area :content, class: "form-control" %>
+
+  <%= f.submit "Mettre à jour", class: "btn btn-success mt-3" %>
+<% end %>

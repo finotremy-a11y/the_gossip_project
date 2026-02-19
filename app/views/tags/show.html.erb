@@ -1,4 +1,6 @@
-<h1>Les derniers potins</h1>
+<h1>Tag : <%= @tag.title %></h1>
+
+<h2>Gossips associés</h2>
 
 <% @gossips.each do |g| %>
   <div class="card mb-3">
@@ -8,8 +10,4 @@
       <small>Par <%= g.user.first_name %></small>
     </div>
   </div>
-<% end %>
-
-<% if logged_in? %>
-  <%= link_to "Créer un nouveau gossip", new_gossip_path, class: "btn btn-primary" %>
 <% end %>

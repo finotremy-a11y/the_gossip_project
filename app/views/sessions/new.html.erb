@@ -1,0 +1,11 @@
+<h1>Connexion</h1>
+
+<%= form_with url: sessions_path, local: true, data: { turbo: false } do |f| %>
+  <%= label_tag :email %>
+  <%= email_field_tag :email %>
+
+  <%= label_tag :password %>
+  <%= password_field_tag :password %>
+
+  <%= submit_tag "Se connecter" %>
+<% end %>

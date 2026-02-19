@@ -6,4 +6,9 @@ class User < ApplicationRecord
   has_many :sent_messages, class_name: "PrivateMessage", foreign_key: "sender_id"
   has_many :message_recipients, foreign_key: "recipient_id"
   has_many :received_messages, through: :message_recipients, source: :private_message
+
+  has_secure_password
+
+  validates :email, presence: true, uniqueness: true
+  validates :password, length: { minimum: 6 }, allow_nil: true
 end

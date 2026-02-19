@@ -1,18 +1,39 @@
-<h1>Profil de <%= @user.first_name %></h1>
+<h1>Profil de <%= @user.first_name %> <%= @user.last_name %></h1>
 
-<p><strong>Prénom :</strong> <%= @user.first_name %></p>
-<p><strong>Nom :</strong> <%= @user.last_name %></p>
-<p><strong>Email :</strong> <%= @user.email %></p>
-
+<p><strong>Âge :</strong> <%= @user.age %></p>
 <p><strong>Ville :</strong> <%= @user.city.name %></p>
+<p><strong>Description :</strong> <%= @user.description %></p>
 
-<p><strong>Ses potins :</strong></p>
-<ul>
-  <% @user.gossips.each do |gossip| %>
-    <li>
-      <%= link_to gossip.title, gossip_path(gossip.id) %>
-    </li>
-  <% end %>
-</ul>
+<hr>
 
-<%= link_to "Retour", root_path, class: "btn btn-secondary mt-3" %>
+<h2>Ses gossips</h2>
+
+<p>
+  <strong>Ville :</strong>
+  <%= link_to @user.city.name, city_path(@user.city) %>
+</p>
+
+<% @user.gossips.each do |g| %>
+  <div class="card mb-3">
+    <div class="card-body">
+      <h3><%= link_to g.title, gossip_path(g) %></h3>
+      <p><%= truncate(g.content, length: 100) %></p>
+    </div>
+  </div>
+<% end %>
+
+<h2>Messages envoyés</h2>
+
+<% @user.sent_messages.each do |m| %>
+  <p>
+    <%= link_to "Message ##{m.id}", private_message_path(m) %>
+  </p>
+<% end %>
+
+<h2>Messages reçus</h2>
+
+<% @user.received_messages.each do |m| %>
+  <p>
+    <%= link_to "Message ##{m.id}", private_message_path(m) %>
+  </p>
+<% end %>
